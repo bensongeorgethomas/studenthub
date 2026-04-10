@@ -58,6 +58,25 @@
 
 ---
 
+## 📸 Screen Gallery
+
+| **Student Login** | **Student Dashboard** |
+|:---:|:---:|
+| <img src="screenshots/login.png" alt="Student Login" width="400"> | <img src="screenshots/student_dashboard.png" alt="Student Dashboard" width="400"> |
+| _Secure role-based authentication_ | _Personalized student workspace_ |
+
+| **Student Dashboard with AI** | **Teacher Login** |
+|:---:|:---:|
+| <img src="screenshots/student_dashboard_ai.png" alt="Student Dashboard with AI Chat" width="400"> | <img src="screenshots/teacher_login.png" alt="Teacher Login" width="400"> |
+| _AI study assistant & community spaces_ | _Faculty access portal_ |
+
+| **Teacher Dashboard** | |
+|:---:|:---:|
+| <img src="screenshots/teacher_dashboard.png" alt="Teacher Dashboard" width="400"> | |
+| _Class overview, assignments & attendance_ | |
+
+---
+
 ## 🛠️ Technology Stack
 
 | Layer | Technology |

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Achievements - StudyHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="community-pages.css">
+</head>
+
+<body class="hub-body" data-page="achievements">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="hub-layout">
+        <aside class="hub-sidebar">
+            <h2 class="sidebar-brand">StudyHub</h2>
+            <p class="sidebar-user">Hello, <span id="sidebarStudentName">Student</span></p>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" data-nav="dashboard">📚 Dashboard</a>
+                <a href="profile.html" data-nav="profile">👤 My Profile</a>
+                <a href="study-timer.html" data-nav="timer">⏱️ Study Timer</a>
+                <a href="achievements.html" data-nav="achievements" class="active">🏆 Achievements</a>
+                <a href="announcement.html" data-nav="announcements">🔔 Announcements</a>
+                <a href="notes-community.html" data-nav="notes">📝 Notes Sharing</a>
+                <a href="help-community.html" data-nav="help">🙋 Homework Help</a>
+                <a href="offtopic-community.html" data-nav="offtopic">💬 Off Topic</a>
+                <a href="shopping.html" data-nav="shopping">🛒 Book Marketplace</a>
+            </nav>
+
+            <section class="sidebar-documents">
+                <h4>My Uploaded Notes (<span id="sidebarDocumentsCount">0</span>)</h4>
+                <div id="sidebarDocumentsList" class="sidebar-documents-list">
+                    <p class="community-placeholder">Loading...</p>
+                </div>
+            </section>
+
+            <button id="logoutBtn" class="sidebar-logout">Logout</button>
+        </aside>
+
+        <main class="hub-main">
+            <header class="page-header">
+                <h2>Weekly Student Achievements</h2>
+                <p>Top contributors based on note uploads, help actions, and community activity this week.</p>
+            </header>
+
+            <section id="achievementBoard" class="achievement-grid">
+                <p class="community-placeholder">Loading achievements...</p>
+            </section>
+        </main>
+    </div>
+
+    <script src="community-data.js"></script>
+    <script src="community-sidebar.js"></script>
+    <script src="achievements-page.js"></script>
+</body>
+
+</html>

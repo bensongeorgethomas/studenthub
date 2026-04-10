@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - StudyHub</title>
+    <!-- Use Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <div class="login-card" style="border-top: 5px solid #ef4444;">
+            <h2 style="color: #ef4444;">Admin Portal</h2>
+            <p class="subtitle">Please enter your admin credentials.</p>
+
+            <form id="adminLoginForm">
+                <div class="input-group">
+                    <label for="email">Admin Email</label>
+                    <input type="email" id="email" name="email" placeholder="admin@example.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" id="submitBtn" style="background-color: #ef4444;">Secure Login</button>
+            </form>
+            <div style="text-align: center; margin-top: 1rem; font-size: 0.875rem;">
+                <a href="login.html" style="color: var(--text-secondary); text-decoration: none;">Return to Standard
+                    Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-login.js?v=2"></script>
+</body>
+
+</html>

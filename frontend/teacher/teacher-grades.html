@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Grades - StudyHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../student/community-pages.css">
+    <link rel="stylesheet" href="teacher-dashboard.css">
+</head>
+
+<body class="hub-body" data-page="teacher-dashboard" data-layout="multipage" data-view="grades">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+
+    <div class="hub-layout">
+        <aside class="hub-sidebar">
+            <h2 class="sidebar-brand">StudyHub Teacher</h2>
+            <p class="sidebar-user">Hello, <span id="teacherName">Teacher</span></p>
+
+            <nav class="sidebar-nav">
+                <a href="teacher-dashboard.html" data-view="overview">📊 Overview</a>
+                <a href="teacher-communication.html" data-view="communication">💬 Communication</a>
+                <a href="teacher-records.html" data-view="records">📁 Student Records</a>
+                <a href="teacher-performance.html" data-view="performance">📈 Student Progress</a>
+                <a href="teacher-grades.html" data-view="grades">🎓 Grades</a>
+                <a href="teacher-assignments.html" data-view="assignments">📋 Assignments</a>
+                <a href="teacher-announcements.html" data-view="announcements">📢 Announcements</a>
+                <a href="teacher-attendance.html" data-view="attendance">✅ Attendance</a>
+                <a href="teacher-profile.html" data-view="profile">👤 My Profile</a>
+            </nav>
+
+            <button id="logoutBtn" class="sidebar-logout">Logout</button>
+        </aside>
+
+        <main class="hub-main">
+            <header class="page-header">
+                <h2 id="viewTitle">🎓 Grades</h2>
+                <p id="viewSubtitle">Record and manage subject-wise grades for each student.</p>
+            </header>
+
+            <section id="view-grades" class="teacher-view active">
+                <!-- Grade Entry Form -->
+                <div class="community-form" style="margin-bottom: 1.5rem;">
+                    <h3>Add / Update Grade</h3>
+                    <div class="community-form-grid">
+                        <select id="gradeStudentSelect"></select>
+                        <input id="gradeSubjectInput" type="text" placeholder="Subject (e.g. Mathematics)">
+                    </div>
+                    <div class="community-form-grid">
+                        <input id="gradeScoreInput" type="number" min="0" max="100" placeholder="Score (0 – 100)">
+                        <input id="gradeMaxInput" type="number" min="1" max="100" placeholder="Max Score (default 100)" value="100">
+                    </div>
+                    <div class="community-form-grid">
+                        <input id="gradeExamInput" type="text" placeholder="Exam name (e.g. Mid-Term)">
+                        <input id="gradeExamDateInput" type="date">
+                    </div>
+                    <textarea id="gradeRemarkInput" placeholder="Remarks or feedback (optional)" style="width:100%; margin-top: 0.5rem;"></textarea>
+                    <div class="community-form-row" style="margin-top: 0.75rem;">
+                        <span class="readonly-note">Grades are saved locally in your browser.</span>
+                        <button id="gradeAddBtn" class="community-submit-btn">Save Grade</button>
+                    </div>
+                </div>
+
+                <!-- Grade Summary Table per Student -->
+                <div class="teacher-grid two-col">
+                    <div class="teacher-card">
+                        <h3>Student Roster</h3>
+                        <div id="gradeStudentList" class="teacher-list"></div>
+                    </div>
+
+                    <div class="teacher-card">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                            <h3 id="gradeStudentTitle">Select a student</h3>
+                            <span class="session-count-badge" id="gradeAvgBadge" style="display:none;"></span>
+                        </div>
+
+                        <div id="gradeTable" class="community-feed">
+                            <p class="community-placeholder">Select a student from the roster to view their grades.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Class Overview -->
+                <div class="teacher-card" style="margin-top: 1rem;">
+                    <h3>Class Grade Overview</h3>
+                    <div id="classGradeOverview" class="teacher-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-top: 0.75rem; gap: 0.6rem;"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="teacher-dashboard.js"></script>
+</body>
+
+</html>

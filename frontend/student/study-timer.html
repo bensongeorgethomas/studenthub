@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Timer - StudyHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="community-pages.css">
+    <style>
+        .timer-page {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .timer-page { grid-template-columns: 1fr; }
+        }
+
+        /* Pomodoro Timer */
+        .timer-card {
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            background: rgba(255,255,255,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .timer-mode-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 0.75rem;
+            padding: 0.3rem;
+            width: 100%;
+        }
+
+        .timer-mode-tab {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.6rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: none;
+            width: auto;
+        }
+
+        .timer-mode-tab.active {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .timer-mode-tab:hover:not(.active) {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-primary);
+            transform: none;
+        }
+
+        .timer-circle-wrap {
+            position: relative;
+            width: 220px;
+            height: 220px;
+        }
+
+        .timer-svg {
+            transform: rotate(-90deg);
+            width: 220px;
+            height: 220px;
+        }
+
+        .timer-track {
+            fill: none;
+            stroke: rgba(255,255,255,0.07);
+            stroke-width: 10;
+        }
+
+        .timer-progress {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-dasharray: 628;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+        }
+
+        .timer-progress.break-mode {
+            stroke: #14b8a6;
+        }
+
+        .timer-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .timer-time {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .timer-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.75rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .timer-btn {
+            width: auto;
+            box-shadow: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .timer-btn-secondary {
+            background: rgba(255,255,255,0.06);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .timer-btn-secondary:hover {
+            background: rgba(255,255,255,0.12);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .timer-session-info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .session-count-badge {
+            background: rgba(99,102,241,0.15);
+            color: var(--primary-color);
+            border: 1px solid rgba(99,102,241,0.3);
+            border-radius: 999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .custom-time-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .custom-time-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .custom-time-field label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .custom-time-field input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.65rem;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Session Log */
+        .session-log-card {
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .session-log-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .session-log-header h3 { margin: 0; }
+
+        .clear-btn {
+            width: auto;
+            background: transparent;
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #f87171;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            box-shadow: none;
+        }
+
+        .clear-btn:hover {
+            background: rgba(239,68,68,0.1);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .session-log-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-height: 340px;
+            overflow-y: auto;
+        }
+
+        .session-entry {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .session-entry:hover {
+            border-color: rgba(99,102,241,0.3);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .session-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .session-icon.focus { background: rgba(99,102,241,0.15); }
+        .session-icon.break { background: rgba(20,184,166,0.15); }
+
+        .session-info { flex: 1; overflow: hidden; }
+
+        .session-type {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .session-type.focus { color: var(--primary-color); }
+        .session-type.break { color: #14b8a6; }
+
+        .session-duration {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .session-time-stamp {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        /* Stats row */
+        .timer-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .timer-stat-box {
+            border: 1px solid var(--border-color);
+            border-radius: 0.9rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            text-align: center;
+        }
+
+        .timer-stat-box span {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+
+        .timer-stat-box strong {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .session-entry { animation: fadeIn 0.3s ease; }
+
+        .notification-bar {
+            display: none;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            background: rgba(99,102,241,0.15);
+            border: 1px solid rgba(99,102,241,0.35);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="hub-body" data-page="timer">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="hub-layout">
+        <aside class="hub-sidebar">
+            <h2 class="sidebar-brand">StudyHub</h2>
+            <p class="sidebar-user">Hello, <span id="sidebarStudentName">Student</span></p>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" data-nav="dashboard">📚 Dashboard</a>
+                <a href="profile.html" data-nav="profile">👤 My Profile</a>
+                <a href="study-timer.html" data-nav="timer">⏱️ Study Timer</a>
+                <a href="achievements.html" data-nav="achievements">🏆 Achievements</a>
+                <a href="announcement.html" data-nav="announcements">🔔 Announcements</a>
+                <a href="notes-community.html" data-nav="notes">📝 Notes Sharing</a>
+                <a href="help-community.html" data-nav="help">🙋 Homework Help</a>
+                <a href="offtopic-community.html" data-nav="offtopic">💬 Off Topic</a>
+                <a href="shopping.html" data-nav="shopping">🛒 Book Marketplace</a>
+            </nav>
+
+            <section class="sidebar-documents">
+                <h4>My Uploaded Notes (<span id="sidebarDocumentsCount">0</span>)</h4>
+                <div id="sidebarDocumentsList" class="sidebar-documents-list">
+                    <p class="community-placeholder">Loading...</p>
+                </div>
+            </section>
+
+            <button id="logoutBtn" class="sidebar-logout">Logout</button>
+        </aside>
+
+        <main class="hub-main">
+            <header class="page-header">
+                <h2>⏱️ Pomodoro Study Timer</h2>
+                <p>Stay focused with timed study sessions and tracked breaks.</p>
+            </header>
+
+            <div class="timer-stats" id="timerStats">
+                <div class="timer-stat-box">
+                    <span>Today's Focus</span>
+                    <strong id="statFocusTime">0m</strong>
+                </div>
+                <div class="timer-stat-box">
+                    <span>Sessions Done</span>
+                    <strong id="statSessions">0</strong>
+                </div>
+                <div class="timer-stat-box">
+                    <span>Current Streak</span>
+                    <strong id="statStreak">0🔥</strong>
+                </div>
+            </div>
+
+            <div class="timer-page">
+                <!-- Timer Card -->
+                <div class="timer-card">
+                    <div class="timer-mode-tabs">
+                        <button class="timer-mode-tab active" data-mode="pomodoro" id="modePomodoro">Pomodoro</button>
+                        <button class="timer-mode-tab" data-mode="short" id="modeShort">Short Break</button>
+                        <button class="timer-mode-tab" data-mode="long" id="modeLong">Long Break</button>
+                        <button class="timer-mode-tab" data-mode="custom" id="modeCustom">Custom</button>
+                    </div>
+
+                    <div id="notificationBar" class="notification-bar"></div>
+
+                    <div class="timer-circle-wrap">
+                        <svg class="timer-svg" viewBox="0 0 220 220">
+                            <circle class="timer-track" cx="110" cy="110" r="100"/>
+                            <circle class="timer-progress" id="timerProgress" cx="110" cy="110" r="100"/>
+                        </svg>
+                        <div class="timer-display">
+                            <div class="timer-time" id="timerDisplay">25:00</div>
+                            <div class="timer-label" id="timerModeLabel">Focus</div>
+                        </div>
+                    </div>
+
+                    <div id="customTimePanel" style="display:none; width:100%;">
+                        <div class="custom-time-grid">
+                            <div class="custom-time-field">
+                                <label>Focus (min)</label>
+                                <input type="number" id="customFocus" value="25" min="1" max="120">
+                            </div>
+                            <div class="custom-time-field">
+                                <label>Short Break</label>
+                                <input type="number" id="customShort" value="5" min="1" max="60">
+                            </div>
+                            <div class="custom-time-field">
+                                <label>Long Break</label>
+                                <input type="number" id="customLong" value="15" min="1" max="60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timer-controls">
+                        <button id="startStopBtn" class="timer-btn">▶ Start</button>
+                        <button id="resetBtn" class="timer-btn timer-btn-secondary">↺ Reset</button>
+                        <button id="skipBtn" class="timer-btn timer-btn-secondary">⏭ Skip</button>
+                    </div>
+
+                    <div class="timer-session-info">
+                        <span>Pomodoros until long break:</span>
+                        <span class="session-count-badge" id="pomodoroCount">0 / 4</span>
+                    </div>
+                </div>
+
+                <!-- Session Log -->
+                <div class="session-log-card">
+                    <div class="session-log-header">
+                        <h3>Today's Sessions</h3>
+                        <button id="clearLogBtn" class="clear-btn">Clear Log</button>
+                    </div>
+
+                    <div id="sessionLog" class="session-log-list">
+                        <p class="community-placeholder" id="emptyLogMsg">No sessions yet. Start your timer! 🎯</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="community-data.js"></script>
+    <script src="community-sidebar.js"></script>
+    <script src="study-timer.js"></script>
+</body>
+
+</html>

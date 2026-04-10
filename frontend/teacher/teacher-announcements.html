@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Announcements - StudyHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../student/community-pages.css">
+    <link rel="stylesheet" href="teacher-dashboard.css">
+</head>
+
+<body class="hub-body" data-page="teacher-dashboard" data-layout="multipage" data-view="announcements">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+
+    <div class="hub-layout">
+        <aside class="hub-sidebar">
+            <h2 class="sidebar-brand">StudyHub Teacher</h2>
+            <p class="sidebar-user">Hello, <span id="teacherName">Teacher</span></p>
+
+            <nav class="sidebar-nav">
+                <a href="teacher-dashboard.html" data-view="overview">📊 Overview</a>
+                <a href="teacher-communication.html" data-view="communication">💬 Communication</a>
+                <a href="teacher-records.html" data-view="records">📁 Student Records</a>
+                <a href="teacher-performance.html" data-view="performance">📈 Student Progress</a>
+                <a href="teacher-grades.html" data-view="grades">🎓 Grades</a>
+                <a href="teacher-assignments.html" data-view="assignments">📋 Assignments</a>
+                <a href="teacher-announcements.html" data-view="announcements">📢 Announcements</a>
+                <a href="teacher-attendance.html" data-view="attendance">✅ Attendance</a>
+                <a href="teacher-profile.html" data-view="profile">👤 My Profile</a>
+            </nav>
+
+            <button id="logoutBtn" class="sidebar-logout">Logout</button>
+        </aside>
+
+        <main class="hub-main">
+            <header class="page-header">
+                <h2 id="viewTitle">📢 Announcements</h2>
+                <p id="viewSubtitle">Post class-wide notices, reminders, and important updates.</p>
+            </header>
+
+            <section id="view-announcements" class="teacher-view active">
+                <!-- Create Announcement Form -->
+                <div class="community-form" style="margin-bottom: 1.5rem;">
+                    <h3>Create Announcement</h3>
+                    <div class="community-form-grid">
+                        <input id="announcementTitleInput" type="text" placeholder="Announcement title" maxlength="120">
+                        <select id="announcementPrioritySelect">
+                            <option value="info">ℹ️ Info</option>
+                            <option value="reminder">⏰ Reminder</option>
+                            <option value="urgent">🚨 Urgent</option>
+                        </select>
+                    </div>
+                    <textarea id="announcementBodyInput" placeholder="Write the full announcement here..." rows="4" style="width: 100%; margin-top: 0.5rem;"></textarea>
+                    <div class="community-form-row" style="margin-top: 0.75rem;">
+                        <span class="readonly-note">Announcements are stored locally and visible to all students in future integration.</span>
+                        <button id="announcementPostBtn" class="community-submit-btn">Post Announcement</button>
+                    </div>
+                </div>
+
+                <!-- Announcement Feed -->
+                <div class="teacher-card">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3>Posted Announcements</h3>
+                        <button id="clearAnnouncementsBtn" style="width: auto; background: transparent; border: 1px solid rgba(239,68,68,0.3); color: #f87171; font-size: 0.8rem; padding: 0.35rem 0.75rem; border-radius: 0.5rem; cursor: pointer; box-shadow: none;">Clear All</button>
+                    </div>
+                    <div id="announcementFeed" class="community-feed">
+                        <p class="community-placeholder">No announcements yet. Post your first one! 📢</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="teacher-dashboard.js"></script>
+</body>
+
+</html>

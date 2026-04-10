@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - StudyHub</title>
+    <!-- Use Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="community-pages.css">
+    <style>
+        .document-item {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            margin-bottom: 0.6rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        .document-item:hover {
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+
+        .document-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 140px;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .delete-btn {
+            background-color: transparent;
+            color: #f87171;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.4rem;
+            transition: all 0.2s;
+        }
+        
+        .delete-btn:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .upload-section {
+            border: 2px dashed var(--border-color);
+            padding: 2.5rem;
+            text-align: center;
+            border-radius: 1.25rem;
+            margin-bottom: 2.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-section:hover {
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .flashcard {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .flashcard:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .flashcard strong {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+            font-size: 1rem;
+            letter-spacing: 0.025em;
+        }
+
+        .flashcard p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .community-link-card {
+            display: block;
+            text-decoration: none;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .community-link-card:hover {
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .community-link-card strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .community-link-card span {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
+    </style>
+</head>
+
+<body class="hub-body" data-page="dashboard">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="hub-layout">
+        <aside class="hub-sidebar">
+            <h2 class="sidebar-brand">StudyHub</h2>
+            <p class="sidebar-user">Hello, <span id="sidebarStudentName">Student</span></p>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" data-nav="dashboard">📚 Dashboard</a>
+                <a href="profile.html" data-nav="profile">👤 My Profile</a>
+                <a href="study-timer.html" data-nav="timer">⏱️ Study Timer</a>
+                <a href="achievements.html" data-nav="achievements">🏆 Achievements</a>
+                <a href="announcement.html" data-nav="announcements">🔔 Announcements</a>
+                <a href="notes-community.html" data-nav="notes">📝 Notes Sharing</a>
+                <a href="help-community.html" data-nav="help">🙋 Homework Help</a>
+                <a href="offtopic-community.html" data-nav="offtopic">💬 Off Topic</a>
+                <a href="shopping.html" data-nav="shopping">🛒 Book Marketplace</a>
+            </nav>
+
+            <section class="sidebar-documents">
+                <h4>My Uploaded Notes (<span id="sidebarDocumentsCount">0</span>)</h4>
+                <div id="documentsList" class="sidebar-documents-list">
+                    <p class="community-placeholder">Loading history...</p>
+                </div>
+            </section>
+
+            <button id="logoutBtn" class="sidebar-logout">Logout</button>
+        </aside>
+
+        <main class="hub-main">
+            <header class="page-header">
+                <h2>StudyHub Dashboard</h2>
+                <p>Upload a document and auto-generate intelligent flashcards.</p>
+            </header>
+
+            <div class="upload-section">
+                <h3 style="margin-bottom: 1rem;">Upload a PDF to Generate Flashcards</h3>
+                <form id="uploadForm" style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; max-width: 500px; margin: 0 auto; flex-wrap: wrap;">
+                    <input type="file" id="pdfFile" accept=".pdf" required style="flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 0.5rem; background: #ffffff;">
+                    <button type="submit" id="uploadBtn" class="community-submit-btn" style="margin: 0; padding: 0.6rem 1.2rem;">Generate</button>
+                </form>
+                <p id="statusMsg" style="margin-top: 1rem; color: var(--text-secondary);"></p>
+            </div>
+
+            <div id="resultsArea">
+                <h3 id="resultsTitle" style="margin-bottom: 0.5rem;">Generated Flashcards</h3>
+                <div class="flashcard-grid" id="flashcardsContainer">
+                    <!-- Flashcards will be injected here -->
+                </div>
+            </div>
+
+            <section class="community-links" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                <h3 style="margin-bottom: 0.5rem;">Community Spaces</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">Explore community boards for help, sharing notes, and buying books.</p>
+                <div class="community-links-grid">
+                    <a class="community-link-card" href="achievements.html">
+                        <strong>Weekly Achievements</strong>
+                        <span>Leaderboard for note uploaders and helpers.</span>
+                    </a>
+                    <a class="community-link-card" href="announcement.html">
+                        <strong>🔔 Announcements</strong>
+                        <span>Teacher notices, reminders, and updates.</span>
+                    </a>
+                    <a class="community-link-card" href="notes-community.html">
+                        <strong>Notes Sharing</strong>
+                        <span>Share notes and useful study resources.</span>
+                    </a>
+                    <a class="community-link-card" href="help-community.html">
+                        <strong>Project & Homework Help</strong>
+                        <span>Ask for help with assignments, projects, and homework.</span>
+                    </a>
+                    <a class="community-link-card" href="offtopic-community.html">
+                        <strong>Off Topic</strong>
+                        <span>Casual student conversations and non-academic threads.</span>
+                    </a>
+                    <a class="community-link-card" href="shopping.html">
+                        <strong>Book Marketplace</strong>
+                        <span>Buy or sell books with other students.</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="community-data.js"></script>
+    <script src="community-sidebar.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="ai-chat.js"></script>
+</body>
+
+</html>

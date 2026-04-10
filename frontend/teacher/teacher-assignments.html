@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Assignments - StudyHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../student/community-pages.css">
+    <link rel="stylesheet" href="teacher-dashboard.css">
+</head>
+
+<body class="hub-body" data-page="teacher-dashboard" data-layout="multipage" data-view="assignments">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+
+    <div class="hub-layout">
+        <aside class="hub-sidebar">
+            <h2 class="sidebar-brand">StudyHub Teacher</h2>
+            <p class="sidebar-user">Hello, <span id="teacherName">Teacher</span></p>
+
+            <nav class="sidebar-nav">
+                <a href="teacher-dashboard.html" data-view="overview">📊 Overview</a>
+                <a href="teacher-communication.html" data-view="communication">💬 Communication</a>
+                <a href="teacher-records.html" data-view="records">📁 Student Records</a>
+                <a href="teacher-performance.html" data-view="performance">📈 Student Progress</a>
+                <a href="teacher-grades.html" data-view="grades">🎓 Grades</a>
+                <a href="teacher-assignments.html" data-view="assignments">📋 Assignments</a>
+                <a href="teacher-announcements.html" data-view="announcements">📢 Announcements</a>
+                <a href="teacher-attendance.html" data-view="attendance">✅ Attendance</a>
+                <a href="teacher-profile.html" data-view="profile">👤 My Profile</a>
+            </nav>
+
+            <button id="logoutBtn" class="sidebar-logout">Logout</button>
+        </aside>
+
+        <main class="hub-main">
+            <header class="page-header">
+                <h2 id="viewTitle">Assignments</h2>
+                <p id="viewSubtitle">Create tasks, homework, and project work.</p>
+            </header>
+
+            <section id="view-assignments" class="teacher-view active">
+                <div class="community-form">
+                    <h3>Assign Homework or Tasks</h3>
+                    <div class="community-form-grid">
+                        <input id="assignmentTitleInput" type="text" placeholder="Assignment title">
+                        <select id="assignmentTypeSelect">
+                            <option value="Homework">Homework</option>
+                            <option value="Assignment">Assignment</option>
+                            <option value="Project">Project</option>
+                            <option value="Quiz Prep">Quiz Prep</option>
+                        </select>
+                    </div>
+                    <div class="community-form-grid">
+                        <select id="assignmentStudentSelect"></select>
+                        <input id="assignmentDueInput" type="date">
+                    </div>
+                    <textarea id="assignmentDetailsInput" placeholder="Assignment details or instructions"></textarea>
+                    <div class="community-form-row">
+                        <span class="readonly-note">Assignments are stored locally for now.</span>
+                        <button id="assignmentAddBtn" class="community-submit-btn">Assign Task</button>
+                    </div>
+                </div>
+
+                <div class="teacher-card">
+                    <h3>Active Assignments</h3>
+                    <div id="assignmentList" class="community-feed">
+                        <p class="community-placeholder">No assignments yet.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="teacher-dashboard.js"></script>
+</body>
+
+</html>

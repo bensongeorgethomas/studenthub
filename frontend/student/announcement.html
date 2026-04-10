@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Announcements - StudyHub</title>
+    <!-- Use Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="community-pages.css">
+    <style>
+        .announcement-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .announcement-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .ann-priority {
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            padding: 0.2rem 0.5rem; 
+            border-radius: 999px; 
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .ann-info { background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+        .ann-reminder { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.35); }
+        .ann-urgent { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.35); }
+
+        .announcement-card strong {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            letter-spacing: 0.025em;
+        }
+
+        .announcement-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .ann-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+        }
+    </style>
+</head>
+
+<body class="hub-body" data-page="announcements">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="hub-layout">
+        <aside class="hub-sidebar">
+            <h2 class="sidebar-brand">StudyHub</h2>
+            <p class="sidebar-user">Hello, <span id="sidebarStudentName">Student</span></p>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" data-nav="dashboard">📚 Dashboard</a>
+                <a href="profile.html" data-nav="profile">👤 My Profile</a>
+                <a href="study-timer.html" data-nav="timer">⏱️ Study Timer</a>
+                <a href="achievements.html" data-nav="achievements">🏆 Achievements</a>
+                <a href="announcement.html" data-nav="announcements" class="active">🔔 Announcements</a>
+                <a href="notes-community.html" data-nav="notes">📝 Notes Sharing</a>
+                <a href="help-community.html" data-nav="help">🙋 Homework Help</a>
+                <a href="offtopic-community.html" data-nav="offtopic">💬 Off Topic</a>
+                <a href="shopping.html" data-nav="shopping">🛒 Book Marketplace</a>
+            </nav>
+
+            <section class="sidebar-documents">
+                <h4>My Uploaded Notes (<span id="sidebarDocumentsCount">0</span>)</h4>
+                <div id="documentsList" class="sidebar-documents-list">
+                    <p class="community-placeholder">Loading history...</p>
+                </div>
+            </section>
+
+            <button id="logoutBtn" class="sidebar-logout">Logout</button>
+        </aside>
+
+        <main class="hub-main">
+            <header class="page-header">
+                <h2>Teacher Announcements</h2>
+                <p>Stay up to date with class notices, reminders, and important updates.</p>
+            </header>
+
+            <div class="announcement-feed" id="announcementsContainer">
+                <p class="community-placeholder">Loading announcements...</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="community-data.js"></script>
+    <script src="community-sidebar.js"></script>
+    <script src="announcements.js"></script>
+    <script src="ai-chat.js"></script>
+</body>
+
+</html>

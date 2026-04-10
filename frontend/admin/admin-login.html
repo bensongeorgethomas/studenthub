@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - StudyHub</title>
+    <!-- Use Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Admin-specific overrides for the premium layout */
+        :root {
+            /* Admin Theme: Deep reds and crimsons */
+            --gradient-start: #991b1b;
+            --gradient-end: #ef4444;
+            --primary-color: #ef4444;
+            --primary-hover: #dc2626;
+            --input-focus-ring: rgba(239, 68, 68, 0.2);
+        }
+        
+        .admin-badge {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="split-layout">
+        <!-- Left Visual Area -->
+        <div class="image-section">
+            <div class="decorative-circle-1" style="background: linear-gradient(to right, rgba(0,0,0,0.3), transparent);"></div>
+            <div class="decorative-circle-2" style="background: linear-gradient(to left, rgba(0,0,0,0.3), transparent);"></div>
+            <div class="glass-panel">
+                <span class="admin-badge">Secure Zone</span>
+                <h1>StudyHub<br>Admin</h1>
+                <p>Welcome to the administrator portal. Sign in to oversee user activity, manage documents, and monitor system health statistics in real time.</p>
+            </div>
+        </div>
+
+        <!-- Right Form Area -->
+        <div class="form-section">
+            <div class="login-container">
+                <div class="brand">
+                    <span class="logo-icon">🛡️</span>
+                    <span>Admin Portal</span>
+                </div>
+                
+                <h2>Secure Login</h2>
+                <p class="subtitle">Please authenticate to continue.</p>
+
+                <form id="adminLoginForm">
+                    <div class="input-group">
+                        <label for="email">Administrator Email</label>
+                        <input type="email" id="email" name="email" placeholder="admin@studyhub.ai" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Master Password</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+
+                    <!-- Custom button styling already uses --primary-color overrides -->
+                    <button type="submit" id="submitBtn">Authenticate</button>
+                </form>
+
+                <div class="signup-link">
+                    <a href="../student/login.html" style="color: var(--text-secondary);">← Return to Standard User Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-login.js?v=2"></script>
+</body>
+
+</html>
